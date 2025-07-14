@@ -428,18 +428,5 @@
       "bloating": 8
     },
     "notes": "Skin breakout, stomach issues"
-  },
-  {
-    "id": "sym1748189665899",
-    "userId": "user1",
-    "date": "2025-05-26",
-    "symptoms": [
-      "fatigue"
-    ],
-    "severity": {
-      "fatigue": 8
-    },
-    "notes": "",
-    "loggedAt": "2025-05-25T16:14:25.899Z"
   }
 ]

@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
+require("dotenv").config();
 
 // routes
 const userRoutes = require("./routes/users");
@@ -9,7 +10,7 @@ const symptomRoutes = require("./routes/symptoms");
 const intelligenceRoutes = require("./routes/intelligence");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // middlewares
 app.use(helmet());
@@ -50,4 +51,8 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`PCOS Tracker API running on http://localhost:${PORT}`);
+});
+
+app.listen(PORT, () => {
+  console.log(`PCOS Tracker API running on port ${PORT}`);
 });
