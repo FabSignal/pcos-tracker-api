@@ -1,4 +1,4 @@
-import moment from "moment";
+const moment = require("moment");
 import { generatePredictions } from "./predictions.js";
 
 const express = require("express");
@@ -85,8 +85,4 @@ app.get("/api/cycle-predictions/:userId", async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`PCOS Tracker API running on http://localhost:${PORT}`);
-});
-
-app.listen(PORT, () => {
-  console.log(`PCOS Tracker API running on port ${PORT}`);
 });
