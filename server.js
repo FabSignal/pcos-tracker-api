@@ -1,3 +1,6 @@
+import moment from "moment";
+import { generatePredictions } from "./predictions.js";
+
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -47,6 +50,37 @@ app.get("/", (req, res) => {
       "GET /api/intelligence/report/:userId - Get comprehensive health report",
     ],
   });
+});
+
+app.get("/api/cycle-predictions/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Obtener historial de ciclos desde la base de datos
+    const cycles = await Cycle.find({ userId })
+      .sort({ startDate: -1 })
+      .limit(12);
+
+    if (cycles.length < 3) {
+      return res.status(200).json({
+        status: "insufficient_data",
+        message: "Se necesitan al menos 3 ciclos para generar predicciones",
+      });
+    }
+
+    // Generar predicciones usando tu módulo
+    const predictions = generatePredictions(
+      cycles.map((c) => ({
+        startDate: c.startDate,
+        duration: c.duration,
+      }))
+    );
+
+    res.json(predictions);
+  } catch (error) {
+    console.error("Prediction error:", error);
+    res.status(500).json({ error: "Error generating predictions" });
+  }
 });
 
 app.listen(PORT, () => {
